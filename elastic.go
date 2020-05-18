@@ -9,14 +9,14 @@ import (
         "github.com/elastic/go-elasticsearch/v7/esapi"
 )
 
-func SearchAuthors() (*esapi.Response, error) {
+func SearchAuthors(search string) (*esapi.Response, error) {
         es, err := GetClient()
 
         if err != nil {
                 return nil, err
         }
 
-        buf, err := GetAuthorQuery()
+        buf, err := GetAuthorQuery(search)
 
         if err != nil {
                 return nil, err
@@ -31,14 +31,14 @@ func SearchAuthors() (*esapi.Response, error) {
         return res, nil
 }
 
-func SearchBooks() (*esapi.Response, error) {
+func SearchBooks(search string) (*esapi.Response, error) {
         es, err := GetClient()
 
         if err != nil {
                 return nil, err
         }
 
-        buf, err := GetBookQuery()
+        buf, err := GetBookQuery(search)
 
         if err != nil {
                 return nil, err
@@ -53,12 +53,12 @@ func SearchBooks() (*esapi.Response, error) {
         return res, nil
 }
 
-func GetAuthorQuery() (bytes.Buffer, error) {
+func GetAuthorQuery(search string) (bytes.Buffer, error) {
         var buf bytes.Buffer
         query := map[string]interface{}{
                 "query": map[string]interface{}{
                         "match": map[string]interface{}{
-                                "first_name": "ESTest",
+                                "first_name": search,
                         },
                 },
         }
@@ -70,12 +70,12 @@ func GetAuthorQuery() (bytes.Buffer, error) {
         return buf, nil
 }
 
-func GetBookQuery() (bytes.Buffer, error) {
+func GetBookQuery(search string) (bytes.Buffer, error) {
         var buf bytes.Buffer
         query := map[string]interface{}{
                 "query": map[string]interface{}{
                         "match": map[string]interface{}{
-                                "name": "ESTest",
+                                "name": search,
                         },
                 },
         }

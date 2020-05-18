@@ -124,7 +124,8 @@ var queryType = graphql.NewObject(
                                         },
                                 },
                                 Resolve: func(params graphql.ResolveParams) (interface{}, error) {
-                                        results := FullSearchAuthors()
+                                        search := params.Args["search"].(string)
+                                        results := FullSearchAuthors(search)
                                         var authors []Author
 
                                         for _, hit := range results["hits"].(map[string]interface{})["hits"].([]interface{}) {
@@ -155,7 +156,8 @@ var queryType = graphql.NewObject(
                                         },
                                 },
                                 Resolve: func(params graphql.ResolveParams) (interface{}, error) {
-                                        results := FullSearchAuthors()
+                                        search := params.Args["search"].(string)
+                                        results := FullSearchBooks(search)
                                         var books []Book
 
                                         for _, hit := range results["hits"].(map[string]interface{})["hits"].([]interface{}) {

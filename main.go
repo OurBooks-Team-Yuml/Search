@@ -10,12 +10,12 @@ import (
         "github.com/graphql-go/handler"
 )
 
-func FullSearchAuthors() (map[string]interface{}) {
+func FullSearchAuthors(search string) (map[string]interface{}) {
         var (
                 r  map[string]interface{}
         )
 
-        res, err := SearchAuthors()
+        res, err := SearchAuthors(search)
 
         if err != nil {
                 log.Fatalf("%s", err)
@@ -48,12 +48,12 @@ func FullSearchAuthors() (map[string]interface{}) {
         return r
 }
 
-func FullSearchBooks() (map[string]interface{}) {
+func FullSearchBooks(search string) (map[string]interface{}) {
         var (
                 r  map[string]interface{}
         )
 
-        res, err := SearchBooks()
+        res, err := SearchBooks(search)
 
         if err != nil {
                 log.Fatalf("%s", err)
