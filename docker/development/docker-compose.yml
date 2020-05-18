@@ -1,0 +1,21 @@
+version: '3.7'
+
+networks:
+    books:
+        name: books-external
+
+services:
+    search-app:
+        build:
+            context: ../..
+            dockerfile: docker/development/Dockerfile
+        image: golang:1.14.3-alpine
+        volumes:
+            - ../../:/app
+        ports:
+            - 8003:8003
+        environment:
+            ELASTICSEARCH_URL: http://elastic:9200
+        working_dir: /app
+        networks:
+            - books
