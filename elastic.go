@@ -57,8 +57,11 @@ func GetAuthorQuery(search string) (bytes.Buffer, error) {
         var buf bytes.Buffer
         query := map[string]interface{}{
                 "query": map[string]interface{}{
-                        "match": map[string]interface{}{
-                                "first_name": search,
+                        "wildcard": map[string]interface{}{
+                                "full_name": map[string]interface{}{
+                                        "value": "*" + search + "*",
+                                        "boost": 1.0,
+                                },
                         },
                 },
         }
@@ -74,8 +77,11 @@ func GetBookQuery(search string) (bytes.Buffer, error) {
         var buf bytes.Buffer
         query := map[string]interface{}{
                 "query": map[string]interface{}{
-                        "match": map[string]interface{}{
-                                "name": search,
+                        "wildcard": map[string]interface{}{
+                                "name": map[string]interface{}{
+                                        "value": "*" + search + "*",
+                                        "boost": 1.0,
+                                },
                         },
                 },
         }
