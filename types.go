@@ -39,6 +39,7 @@ type Author struct {
         ID int64 `json:"id"`
         FirstName string  `json:"first_name"`
         LastName string `json:"last_name"`
+        FullName string `json:"full_name"`
         BDay *string `json:birthday_date`
         Biography *string `json:biography`
         Image *string `json:image_path`
@@ -84,32 +85,35 @@ var bookType = graphql.NewObject(
 )
 
 var authorType = graphql.NewObject(
-	graphql.ObjectConfig{
-		Name: "Author",
-		Fields: graphql.Fields{
-			"id": &graphql.Field{
-				Type: graphql.Int,
-			},
-			"firstName": &graphql.Field{
-				Type: graphql.String,
-			},
-			"lastName": &graphql.Field{
-				Type: graphql.String,
-			},
-			"birthdayDate": &graphql.Field{
-				Type: graphql.String,
-			},
-			"biography": &graphql.Field{
-				Type: graphql.String,
-			},
-			"imagePath": &graphql.Field{
-				Type: graphql.String,
+        graphql.ObjectConfig{
+                Name: "Author",
+                Fields: graphql.Fields{
+                        "id": &graphql.Field{
+                                Type: graphql.Int,
+                        },
+                        "firstName": &graphql.Field{
+                                Type: graphql.String,
+                        },
+                        "lastName": &graphql.Field{
+                                Type: graphql.String,
+                        },
+                        "fullName": &graphql.Field{
+                                Type: graphql.String,
+                        },
+                        "birthdayDate": &graphql.Field{
+                                Type: graphql.String,
+                        },
+                        "biography": &graphql.Field{
+                                Type: graphql.String,
+                        },
+                        "imagePath": &graphql.Field{
+                                Type: graphql.String,
                         },
                         "books": &graphql.Field{
-				Type: graphql.NewList(graphql.Int),
-			},
-		},
-	},
+                                Type: graphql.NewList(graphql.Int),
+                        },
+                },
+        },
 )
 
 var queryType = graphql.NewObject(
@@ -138,6 +142,7 @@ var queryType = graphql.NewObject(
                                                         ID: id_int,
                                                         FirstName: source["first_name"].(string),
                                                         LastName: source["last_name"].(string),
+                                                        FullName: source["full_name"].(string),
                                                         BDay: CastToString(source["birthday_date"]),
                                                         Biography: CastToString(source["biography"]),
                                                         Image: CastToString(source["image_path"]),
